@@ -1,0 +1,68 @@
+.container {
+  background: #fff;
+  border-bottom: 2px solid #f3f6f9;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 100px 8px 16px;
+}
+
+.logo {
+  height: 40px;
+  width: 26px;
+}
+
+.hamburger {
+  height: 26px;
+  height: 26px;
+}
+
+.logoContainer,
+.logoContainerOpen {
+  display: flex;
+  align-items: center;
+}
+
+.logoContainerOpen > :first-child {
+  margin-right: 16px;
+}
+
+.logoContainer > .logo {
+  display: none;
+}
+
+.logoContainerOpen > .logo {
+  display: flex;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+}
+
+.profile > :first-child {
+  margin-right: 16px;
+}
+
+.name {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 19px;
+  /* identical to box height */
+
+  text-align: right;
+  color: #005b96;
+}
+
+.avatar {
+  width: 43px;
+  height: 43px;
+  background: #f6ca65;
+  border-radius: 5px;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 800;
+}
