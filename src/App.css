@@ -17,8 +17,9 @@
   height: calc(100% - 61px);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.pageContent {
+  height: 100%;
+  width: 100%;
+  padding: 8px 16px;
+  box-sizing: border-box;
 }

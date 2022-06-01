@@ -1,7 +1,6 @@
-import logo from './logo.svg';
-import './App.css';
 import { Header } from './components/Header';
 import { LeftNavigation } from './components/LeftNavigation';
+import './App.css';
 
 function App() {
   return (
@@ -9,7 +8,7 @@ function App() {
       <Header />
       <div className="content">
         <LeftNavigation />
-        <span>Content will go here</span>
+        <div className="pageContent"></div>
       </div>
     </div>
   );
