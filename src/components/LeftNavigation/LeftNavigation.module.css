@@ -1,0 +1,14 @@
+.container {
+  display: flex;
+  height: 100%;
+  padding: 16px;
+  flex-direction: column;
+  max-width: 56px;
+  box-sizing: border-box;
+}
+
+.container > img {
+  margin-bottom: 16px;
+  height: 24px;
+  width: 24px;
+}

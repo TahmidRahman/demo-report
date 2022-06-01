@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Charts, Modules, Dashboard, Reports, Logout } from './icons';
+import styles from './LeftNavigation.module.css';
 
 const items = [
   {
@@ -31,7 +32,7 @@ const items = [
 
 export function LeftNavigation() {
   return (
-    <div>
+    <div className={styles.container}>
       {items.map((item) => (
         <img src={item.icon} key={item.id} alt={item.id} />
       ))}
