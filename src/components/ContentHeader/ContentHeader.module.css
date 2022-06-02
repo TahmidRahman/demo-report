@@ -1,0 +1,36 @@
+.container {
+  display: flex;
+}
+
+.subject {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.filter {
+  display: flex;
+  flex: 1;
+}
+
+.filter > *:not(:last-child) {
+  margin-right: 16px;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 28px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #011f4b;
+}
+
+.subtitle {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 19px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #7e8299;
+}
