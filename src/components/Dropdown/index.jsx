@@ -18,7 +18,7 @@ const customStyles = {
     fontSize: 14
   })
 };
-export function Dropdown({ value, options }) {
+export function Dropdown({ value, options, onChange }) {
   const selectedOption = options.find((option) => option.value === value);
   return (
     <Select
@@ -26,6 +26,7 @@ export function Dropdown({ value, options }) {
       value={selectedOption}
       options={options}
       isSearchable={false}
+      onChange={(option) => onChange(option.value)}
       components={{
         IndicatorSeparator: () => null,
         DropdownIndicator: (props) => (

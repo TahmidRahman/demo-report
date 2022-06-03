@@ -1,0 +1,55 @@
+.container {
+  width: 100%;
+  height: auto;
+  background: #f1fafe;
+  border-radius: 10px;
+  padding: 18px 24px;
+  box-sizing: border-box;
+}
+
+.container table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.container th {
+  text-align: left;
+  background: white;
+  padding: 8px;
+}
+
+.container td {
+  padding: 8px;
+  text-align: left;
+}
+
+.container tr:nth-child(even) {
+  background: white;
+}
+
+.itemTitle {
+  padding: 24px;
+  background: #ffffff;
+  border-radius: 10px;
+  margin: 16px 0;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 19px;
+  /* identical to box height */
+  color: #011f4b;
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+}
+
+.selection {
+  padding: 8px;
+  text-align: left;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 19px;
+  /* identical to box height */
+  color: #011f4b;
+}
