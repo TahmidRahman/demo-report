@@ -7,6 +7,7 @@ const customStyles = {
     backgroundColor: '#1bc5bd',
     width: 135,
     height: 32,
+    minHeight: 32,
     borderRadius: 5,
     color: 'white',
     border: 'none'
