@@ -53,7 +53,7 @@ export function DataTable({ filter, filterData }) {
         }`}
       </div>
       {Object.keys(transformedData).map((projectId) => (
-        <div>
+        <div key={projectId}>
           <div className={styles.itemTitle}>
             <span>{projectNameMap[projectId]}</span>
             <span>
@@ -73,8 +73,8 @@ export function DataTable({ filter, filterData }) {
               </tr>
             </thead>
             <tbody>
-              {transformedData[projectId].map((project) => (
-                <tr>
+              {transformedData[projectId].map((project, i) => (
+                <tr key={`${projectId}_${project.gatewayId}_${i}`}>
                   <td>{project.created}</td>
                   <td>{gatewayNameMap[project.gatewayId]}</td>
                   <td>{project.paymentId}</td>
