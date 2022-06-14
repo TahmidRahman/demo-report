@@ -6,15 +6,8 @@ import { ContentHeader } from './components/ContentHeader';
 import { DataTable } from './components/DataTable';
 import { fetchAllGateways, fetchAllProjects } from './api';
 
-const INITIAL_FILTER_STATE = {
-  projectId: '',
-  gatewayId: '',
-  from: '',
-  to: ''
-};
-
 function App() {
-  const [filter, setFilter] = React.useState(INITIAL_FILTER_STATE);
+  const [selectedFilter, setSelectedFilter] = React.useState(null);
   const [filterData, setFilterData] = React.useState({
     gateways: [],
     projects: []
@@ -32,11 +25,9 @@ function App() {
     }
     fetchFilterData();
   }, []);
-  const onChangeFilter = React.useCallback((values) => {
-    setFilter((filter) => ({
-      ...filter,
-      ...values
-    }));
+
+  const onSubmitFilter = React.useCallback((filter) => {
+    setSelectedFilter(filter);
   }, []);
 
   return (
@@ -48,11 +39,10 @@ function App() {
           <ContentHeader
             title="Reports"
             subtitle="Easily generate a report of your transactions"
-            filter={filter}
             filterData={filterData}
-            onChangeFilter={onChangeFilter}
+            onSubmitFilter={onSubmitFilter}
           />
-          <DataTable filter={filter} filterData={filterData} />
+          <DataTable selectedFilter={selectedFilter} filterData={filterData} />
         </div>
       </div>
     </div>

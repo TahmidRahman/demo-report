@@ -3,48 +3,43 @@ import styles from './ContentHeader.module.css';
 import { Dropdown } from '../Dropdown';
 import { Button } from '../Button';
 import { DatePicker } from '../DatePicker';
+import format from 'date-fns/format';
 
 const defaultDropdownOptions = {
   gateway: [{ label: 'All gateways', value: '' }],
   project: [{ label: 'All projects', value: '' }]
 };
 
-export function ContentHeader({
-  title,
-  subtitle,
-  filter,
-  onChangeFilter,
-  filterData
-}) {
+const INITIAL_FILTER_STATE = {
+  projectId: '',
+  gatewayId: '',
+  from: '',
+  to: ''
+};
+
+export function ContentHeader({ title, subtitle, onSubmitFilter, filterData }) {
+  const [filter, setFilter] = React.useState(INITIAL_FILTER_STATE);
   const [dropdownOptions, setDropdownOptions] = React.useState(
     defaultDropdownOptions
   );
-  const onChangeGateway = React.useCallback(
-    (value) => {
-      onChangeFilter({ gatewayId: value });
-    },
-    [onChangeFilter]
-  );
-  const onChangeProject = React.useCallback(
-    (value) => {
-      onChangeFilter({ projectId: value });
-    },
-    [onChangeFilter]
-  );
+  const onChangeGateway = React.useCallback((value) => {
+    setFilter((filter) => ({ ...filter, gatewayId: value }));
+  }, []);
+  const onChangeProject = React.useCallback((value) => {
+    setFilter((filter) => ({ ...filter, projectId: value }));
+  }, []);
 
-  const onChangeFrom = React.useCallback(
-    (value) => {
-      onChangeFilter({ from: value });
-    },
-    [onChangeFilter]
-  );
+  const onChangeFrom = React.useCallback((value) => {
+    setFilter((filter) => ({ ...filter, from: format(value, 'yyyy-MM-dd') }));
+  }, []);
 
-  const onChangeTo = React.useCallback(
-    (value) => {
-      onChangeFilter({ to: value });
-    },
-    [onChangeFilter]
-  );
+  const onChangeTo = React.useCallback((value) => {
+    setFilter((filter) => ({ ...filter, to: format(value, 'yyyy-MM-dd') }));
+  }, []);
+
+  const onClickGenerateReport = React.useCallback(() => {
+    onSubmitFilter(filter);
+  }, [filter, onSubmitFilter]);
 
   React.useEffect(() => {
     function setupDropdownOptions() {
@@ -96,7 +91,9 @@ export function ContentHeader({
           onChange={onChangeTo}
           placeholder="To date"
         />
-        <Button type="secondary">Generate report</Button>
+        <Button type="secondary" onClick={onClickGenerateReport}>
+          Generate report
+        </Button>
       </div>
     </div>
   );

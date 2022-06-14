@@ -5,7 +5,7 @@ import { dateComparator } from '../../utils';
 import styles from './DataTable.module.css';
 import format from 'date-fns/format';
 
-export function DataTable({ filter, filterData }) {
+export function DataTable({ selectedFilter: filter, filterData }) {
   const [data, setData] = React.useState(null);
   const { gateways, projects } = filterData;
 
@@ -14,7 +14,9 @@ export function DataTable({ filter, filterData }) {
       const reports = await fetchAllReports(filter);
       setData(reports);
     }
-    getReports();
+    if (filter) {
+      getReports();
+    }
   }, [filter]);
 
   const gatewayNameMap = React.useMemo(() => {
