@@ -2,6 +2,7 @@ import * as React from 'react';
 import { fetchAllReports } from '../../api';
 import { EmptyContent } from './EmptyContent';
 import styles from './DataTable.module.css';
+import format from 'date-fns/format';
 
 export function DataTable({ filter, filterData }) {
   const [data, setData] = React.useState(null);
@@ -45,6 +46,22 @@ export function DataTable({ filter, filterData }) {
     {}
   );
 
+  const sortedTransformedData = Object.keys(transformedData).reduce(
+    (total, key) => ({
+      ...total,
+      [key]: transformedData[key].sort((a, b) => {
+        if (new Date(a.created) > new Date(b.created)) {
+          return 1;
+        } else if (new Date(a.created) < new Date(b.created)) {
+          return -1;
+        } else {
+          return 0;
+        }
+      })
+    }),
+    {}
+  );
+
   return (
     <div className={styles.container}>
       <div className={styles.selection}>
@@ -52,14 +69,17 @@ export function DataTable({ filter, filterData }) {
           gatewayNameMap[filter.gatewayId]
         }`}
       </div>
-      {Object.keys(transformedData).map((projectId) => (
+      {Object.keys(sortedTransformedData).map((projectId) => (
         <div key={projectId}>
           <div className={styles.itemTitle}>
             <span>{projectNameMap[projectId]}</span>
             <span>
               Total amount:{' '}
               {Number(
-                transformedData[projectId].reduce((t, g) => t + g.amount, 0)
+                sortedTransformedData[projectId].reduce(
+                  (t, g) => t + g.amount,
+                  0
+                )
               ).toFixed(2)}
             </span>
           </div>
@@ -73,9 +93,9 @@ export function DataTable({ filter, filterData }) {
               </tr>
             </thead>
             <tbody>
-              {transformedData[projectId].map((project, i) => (
+              {sortedTransformedData[projectId].map((project, i) => (
                 <tr key={`${projectId}_${project.gatewayId}_${i}`}>
-                  <td>{project.created}</td>
+                  <td>{format(new Date(project.created), 'dd.MM.yyyy')}</td>
                   <td>{gatewayNameMap[project.gatewayId]}</td>
                   <td>{project.paymentId}</td>
                   <td>{project.amount}</td>
