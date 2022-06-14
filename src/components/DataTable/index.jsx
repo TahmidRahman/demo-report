@@ -5,9 +5,9 @@ import { dateComparator } from '../../utils';
 import styles from './DataTable.module.css';
 import format from 'date-fns/format';
 
-export function DataTable({ selectedFilter: filter, filterData }) {
+export function DataTable({ selectedFilter: filter, filterData, group }) {
   const [data, setData] = React.useState(null);
-  const [open, setOpen] = React.useState([]);
+  const [open, setOpen] = React.useState(null);
   const { gateways, projects } = filterData;
 
   React.useEffect(() => {
@@ -34,11 +34,11 @@ export function DataTable({ selectedFilter: filter, filterData }) {
 
   const onClickRow = React.useCallback(
     (event) => {
-      const clickedProjectId = event.target.id;
-      if (open.includes(clickedProjectId)) {
-        setOpen((open) => open.filter((item) => item != clickedProjectId));
+      const clickedId = event.target.id;
+      if (open == clickedId) {
+        setOpen(null);
       } else {
-        setOpen((open) => open.concat(clickedProjectId));
+        setOpen(clickedId);
       }
     },
     [open]
@@ -55,9 +55,9 @@ export function DataTable({ selectedFilter: filter, filterData }) {
   const transformedData = data.reduce(
     (total, item) => ({
       ...total,
-      [item.projectId]: !total[item.projectId]
+      [item[group || 'projectId']]: !total[item[group || 'projectId']]
         ? [item]
-        : [...total[item.projectId], item]
+        : [...total[item[group || 'projectId']], item]
     }),
     {}
   );
@@ -77,37 +77,40 @@ export function DataTable({ selectedFilter: filter, filterData }) {
           gatewayNameMap[filter.gatewayId]
         }`}
       </div>
-      {Object.keys(sortedTransformedData).map((projectId) => (
-        <div key={projectId}>
-          <div className={styles.itemTitle} id={projectId} onClick={onClickRow}>
-            <span>{projectNameMap[projectId]}</span>
+      {Object.keys(sortedTransformedData).map((id) => (
+        <div key={id}>
+          <div className={styles.itemTitle} id={id} onClick={onClickRow}>
+            <span>
+              {group == 'gatewayId' ? gatewayNameMap[id] : projectNameMap[id]}
+            </span>
             <span>
               Total amount:{' '}
               {Number(
-                sortedTransformedData[projectId].reduce(
-                  (t, g) => t + g.amount,
-                  0
-                )
+                sortedTransformedData[id].reduce((t, g) => t + g.amount, 0)
               ).toFixed(2)}
             </span>
           </div>
-          {open.includes(projectId) && (
+          {id == open && (
             <table>
               <thead>
                 <tr>
                   <th>Date</th>
-                  <th>Gateway</th>
+                  {!group && <th>Gateway</th>}
                   <th>Transaction id</th>
                   <th>Amount</th>
                 </tr>
               </thead>
               <tbody>
-                {sortedTransformedData[projectId].map((project, i) => (
-                  <tr key={`${projectId}_${project.gatewayId}_${i}`}>
-                    <td>{format(new Date(project.created), 'dd.MM.yyyy')}</td>
-                    <td>{gatewayNameMap[project.gatewayId]}</td>
-                    <td>{project.paymentId}</td>
-                    <td>{project.amount}</td>
+                {sortedTransformedData[id].map((item, i) => (
+                  <tr
+                    key={`${id}_${
+                      item[group == 'gatewayId' ? 'projectId' : 'gatewayId']
+                    }_${i}`}
+                  >
+                    <td>{format(new Date(item.created), 'dd.MM.yyyy')}</td>
+                    {!group && <td>{gatewayNameMap[item.gatewayId]}</td>}
+                    <td>{item.paymentId}</td>
+                    <td>{item.amount}</td>
                   </tr>
                 ))}
               </tbody>
