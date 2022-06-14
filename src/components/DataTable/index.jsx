@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { fetchAllReports } from '../../api';
 import { EmptyContent } from './EmptyContent';
+import { dateComparator } from '../../utils';
 import styles from './DataTable.module.css';
 import format from 'date-fns/format';
 
@@ -49,15 +50,7 @@ export function DataTable({ filter, filterData }) {
   const sortedTransformedData = Object.keys(transformedData).reduce(
     (total, key) => ({
       ...total,
-      [key]: transformedData[key].sort((a, b) => {
-        if (new Date(a.created) > new Date(b.created)) {
-          return 1;
-        } else if (new Date(a.created) < new Date(b.created)) {
-          return -1;
-        } else {
-          return 0;
-        }
-      })
+      [key]: transformedData[key].sort(dateComparator)
     }),
     {}
   );

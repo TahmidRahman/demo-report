@@ -2,7 +2,7 @@ import * as React from 'react';
 import styles from './ContentHeader.module.css';
 import { Dropdown } from '../Dropdown';
 import { Button } from '../Button';
-import Calendar from './Calendar.svg';
+import { DatePicker } from '../DatePicker';
 
 const defaultDropdownOptions = {
   gateway: [{ label: 'All gateways', value: '' }],
@@ -28,6 +28,20 @@ export function ContentHeader({
   const onChangeProject = React.useCallback(
     (value) => {
       onChangeFilter({ projectId: value });
+    },
+    [onChangeFilter]
+  );
+
+  const onChangeFrom = React.useCallback(
+    (value) => {
+      onChangeFilter({ from: value });
+    },
+    [onChangeFilter]
+  );
+
+  const onChangeTo = React.useCallback(
+    (value) => {
+      onChangeFilter({ to: value });
     },
     [onChangeFilter]
   );
@@ -72,12 +86,16 @@ export function ContentHeader({
           options={dropdownOptions.project}
           onChange={onChangeProject}
         />
-        <Button icon={<img src={Calendar} alt="Calendar" />} type="primary">
-          From Date
-        </Button>
-        <Button icon={<img src={Calendar} alt="Calendar" />} type="primary">
-          To Date
-        </Button>
+        <DatePicker
+          selected={new Date(filter.from)}
+          onChange={onChangeFrom}
+          placeholder="From date"
+        />
+        <DatePicker
+          selected={new Date(filter.to)}
+          onChange={onChangeTo}
+          placeholder="To date"
+        />
         <Button type="secondary">Generate report</Button>
       </div>
     </div>

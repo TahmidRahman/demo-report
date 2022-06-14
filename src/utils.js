@@ -3,3 +3,13 @@ export function getInitialsFromName(firstName, lastName) {
     .map((str) => str.charAt(0).toUpperCase())
     .join('');
 }
+
+export function dateComparator(a, b) {
+  if (new Date(a.created) > new Date(b.created)) {
+    return 1;
+  } else if (new Date(a.created) < new Date(b.created)) {
+    return -1;
+  } else {
+    return 0;
+  }
+}

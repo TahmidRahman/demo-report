@@ -1,0 +1,36 @@
+.container {
+  width: 118px;
+  height: 32px;
+  border-radius: 5px;
+  color: white;
+  position: relative;
+  border: none;
+  background: #1bc5bd;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.container > .react-datepicker__input-container,
+.react-datepicker-ignore-onclickoutside {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container input {
+  width: 118px;
+  background: none;
+  border: none;
+  outline: none;
+  color: white;
+  padding-right: 16px;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.container > img {
+  position: absolute;
+  right: 8px;
+}
