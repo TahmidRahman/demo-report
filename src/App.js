@@ -5,6 +5,7 @@ import './App.css';
 import { ContentHeader } from './components/ContentHeader';
 import { DataTable } from './components/DataTable';
 import { fetchAllGateways, fetchAllProjects } from './api';
+import { DoughnutChart } from './components/DoughnutChart';
 
 function App() {
   const [selectedFilter, setSelectedFilter] = React.useState(null);
@@ -42,7 +43,13 @@ function App() {
             filterData={filterData}
             onSubmitFilter={onSubmitFilter}
           />
-          <DataTable selectedFilter={selectedFilter} filterData={filterData} />
+          <div className="reportContainer">
+            <DataTable
+              selectedFilter={selectedFilter}
+              filterData={filterData}
+            />
+            <DoughnutChart />
+          </div>
         </div>
       </div>
     </div>
