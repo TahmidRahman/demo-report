@@ -6,13 +6,15 @@ import { ContentHeader } from './components/ContentHeader';
 import { DataTable } from './components/DataTable';
 import { fetchAllGateways, fetchAllProjects } from './api';
 
+const INITIAL_FILTER_STATE = {
+  projectId: '',
+  gatewayId: '',
+  from: '',
+  to: ''
+};
+
 function App() {
-  const [filter, setFilter] = React.useState({
-    projectId: '',
-    gatewayId: '',
-    from: '2021-01-01',
-    to: '2021-12-31'
-  });
+  const [filter, setFilter] = React.useState(INITIAL_FILTER_STATE);
   const [filterData, setFilterData] = React.useState({
     gateways: [],
     projects: []

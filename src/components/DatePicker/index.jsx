@@ -7,9 +7,7 @@ import Calendar from './Calendar.svg';
 const DEFAULT_DATE_FORMAT = 'dd.MM.yyyy';
 
 export function DatePicker({ selected, onChange, placeholder, dateFormat }) {
-  const selectedDate = isValid(new Date(selected))
-    ? new Date(selected)
-    : new Date();
+  const selectedDate = isValid(new Date(selected)) ? new Date(selected) : null;
 
   return (
     <div className={styles.container}>

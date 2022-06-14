@@ -30,6 +30,20 @@
   box-sizing: border-box;
 }
 
+::placeholder {
+  color: white;
+  opacity: 1;
+}
+
+:-ms-input-placeholder {
+  color: white;
+}
+
+::-ms-input-placeholder {
+  /* Microsoft Edge */
+  color: white;
+}
+
 .container > img {
   position: absolute;
   right: 8px;
