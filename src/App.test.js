@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import App from './App';
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';
@@ -168,12 +168,16 @@ test('renders empty content if no data found', async () => {
     })
   );
   render(<App />);
+  const button = screen.getByText(/Generate report/);
+  fireEvent.click(button);
   await waitFor(() => screen.getByText(/No reports/));
 });
 
 test('renders table data total group by project', async () => {
   render(<App />);
+  const button = screen.getByText(/Generate report/);
+  fireEvent.click(button);
   await waitFor(() => screen.getByText(/Project 1/));
-  await waitFor(() => screen.getByText(/Gateway 1/));
+  await waitFor(() => screen.getByText(/Project 2/));
   await waitFor(() => screen.getByText(/Total amount: 2663.69/));
 });
