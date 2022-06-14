@@ -13,3 +13,13 @@ export function dateComparator(a, b) {
     return 0;
   }
 }
+
+export function getGroupName(filterData) {
+  if (filterData && !filterData.projectId && filterData.gatewayId) {
+    return 'projectId';
+  } else if (filterData && filterData.projectId && !filterData.gatewayId) {
+    return 'gatewayId';
+  } else {
+    return '';
+  }
+}
