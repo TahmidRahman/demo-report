@@ -7,6 +7,7 @@ import format from 'date-fns/format';
 
 export function DataTable({ selectedFilter: filter, filterData }) {
   const [data, setData] = React.useState(null);
+  const [open, setOpen] = React.useState([]);
   const { gateways, projects } = filterData;
 
   React.useEffect(() => {
@@ -30,6 +31,18 @@ export function DataTable({ selectedFilter: filter, filterData }) {
       '': 'All projects'
     });
   }, [projects]);
+
+  const onClickRow = React.useCallback(
+    (event) => {
+      const clickedProjectId = event.target.id;
+      if (open.includes(clickedProjectId)) {
+        setOpen((open) => open.filter((item) => item != clickedProjectId));
+      } else {
+        setOpen((open) => open.concat(clickedProjectId));
+      }
+    },
+    [open]
+  );
 
   if (!data) {
     return null;
@@ -66,7 +79,7 @@ export function DataTable({ selectedFilter: filter, filterData }) {
       </div>
       {Object.keys(sortedTransformedData).map((projectId) => (
         <div key={projectId}>
-          <div className={styles.itemTitle}>
+          <div className={styles.itemTitle} id={projectId} onClick={onClickRow}>
             <span>{projectNameMap[projectId]}</span>
             <span>
               Total amount:{' '}
@@ -78,26 +91,28 @@ export function DataTable({ selectedFilter: filter, filterData }) {
               ).toFixed(2)}
             </span>
           </div>
-          <table>
-            <thead>
-              <tr>
-                <th>Date</th>
-                <th>Gateway</th>
-                <th>Transaction id</th>
-                <th>Amount</th>
-              </tr>
-            </thead>
-            <tbody>
-              {sortedTransformedData[projectId].map((project, i) => (
-                <tr key={`${projectId}_${project.gatewayId}_${i}`}>
-                  <td>{format(new Date(project.created), 'dd.MM.yyyy')}</td>
-                  <td>{gatewayNameMap[project.gatewayId]}</td>
-                  <td>{project.paymentId}</td>
-                  <td>{project.amount}</td>
+          {open.includes(projectId) && (
+            <table>
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Gateway</th>
+                  <th>Transaction id</th>
+                  <th>Amount</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {sortedTransformedData[projectId].map((project, i) => (
+                  <tr key={`${projectId}_${project.gatewayId}_${i}`}>
+                    <td>{format(new Date(project.created), 'dd.MM.yyyy')}</td>
+                    <td>{gatewayNameMap[project.gatewayId]}</td>
+                    <td>{project.paymentId}</td>
+                    <td>{project.amount}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
         </div>
       ))}
     </div>
