@@ -64,13 +64,16 @@ function App() {
               filterData={filterData}
               group={group}
             />
-            {group && (
-              <DoughnutChart
-                group={group}
-                data={reportData}
-                filterData={filterData}
-              />
-            )}
+            {group &&
+              reportData &&
+              Array.isArray(reportData) &&
+              Boolean(reportData.length) && (
+                <DoughnutChart
+                  group={group}
+                  data={reportData}
+                  filterData={filterData}
+                />
+              )}
           </div>
         </div>
       </div>

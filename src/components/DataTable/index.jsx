@@ -35,7 +35,7 @@ export function DataTable({ selectedFilter: filter, filterData, group }) {
   const onClickRow = React.useCallback(
     (event) => {
       const clickedId = event.target.id;
-      if (open == clickedId) {
+      if (open === clickedId) {
         setOpen(null);
       } else {
         setOpen(clickedId);
@@ -81,7 +81,7 @@ export function DataTable({ selectedFilter: filter, filterData, group }) {
         <div key={id}>
           <div className={styles.itemTitle} id={id} onClick={onClickRow}>
             <span>
-              {group == 'gatewayId' ? gatewayNameMap[id] : projectNameMap[id]}
+              {group === 'gatewayId' ? gatewayNameMap[id] : projectNameMap[id]}
             </span>
             <span>
               Total amount:{' '}
@@ -90,7 +90,7 @@ export function DataTable({ selectedFilter: filter, filterData, group }) {
               ).toFixed(2)}
             </span>
           </div>
-          {id == open && (
+          {id === open && (
             <table>
               <thead>
                 <tr>
@@ -104,7 +104,7 @@ export function DataTable({ selectedFilter: filter, filterData, group }) {
                 {sortedTransformedData[id].map((item, i) => (
                   <tr
                     key={`${id}_${
-                      item[group == 'gatewayId' ? 'projectId' : 'gatewayId']
+                      item[group === 'gatewayId' ? 'projectId' : 'gatewayId']
                     }_${i}`}
                   >
                     <td>{format(new Date(item.created), 'dd.MM.yyyy')}</td>

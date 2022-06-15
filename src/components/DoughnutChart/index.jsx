@@ -24,10 +24,6 @@ export function DoughnutChart({ data = [], group, filterData }) {
     return projects.reduce((t, p) => ({ ...t, [p.projectId]: p.name }), {});
   }, [projects]);
 
-  if (!data) {
-    return null;
-  }
-
   const transformedData = data.reduce(
     (total, item) => ({
       ...total,
@@ -40,7 +36,7 @@ export function DoughnutChart({ data = [], group, filterData }) {
 
   const graphData = {
     labels: Object.keys(transformedData).map((key) =>
-      group == 'gatewayId' ? gatewayNameMap[key] : projectNameMap[key]
+      group === 'gatewayId' ? gatewayNameMap[key] : projectNameMap[key]
     ),
     datasets: [
       {
