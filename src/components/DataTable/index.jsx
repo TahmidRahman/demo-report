@@ -1,24 +1,12 @@
 import * as React from 'react';
-import { fetchAllReports } from '../../api';
 import { EmptyContent } from './EmptyContent';
 import { dateComparator } from '../../utils';
 import styles from './DataTable.module.css';
 import format from 'date-fns/format';
 
-export function DataTable({ selectedFilter: filter, filterData, group }) {
-  const [data, setData] = React.useState(null);
+export function DataTable({ selectedFilter: filter, filterData, group, data }) {
   const [open, setOpen] = React.useState(null);
   const { gateways, projects } = filterData;
-
-  React.useEffect(() => {
-    async function getReports() {
-      const reports = await fetchAllReports(filter);
-      setData(reports);
-    }
-    if (filter) {
-      getReports();
-    }
-  }, [filter]);
 
   const gatewayNameMap = React.useMemo(() => {
     return gateways.reduce((t, g) => ({ ...t, [g.gatewayId]: g.name }), {
