@@ -48,7 +48,7 @@ export function DoughnutChart({ data = [], group, filterData }) {
             presetColors[i] ||
             `rgba(${Math.floor(Math.random() * 255)},${Math.floor(
               Math.random() * 255
-            )},${Math.floor(Math.random() * 255)}),1`
+            )},${Math.floor(Math.random() * 255)},1)`
         )
       }
     ]
