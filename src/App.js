@@ -29,19 +29,11 @@ function App() {
     fetchFilterData();
   }, []);
 
-  const onSubmitFilter = React.useCallback((filter) => {
+  const onSubmitFilter = React.useCallback(async (filter) => {
+    const reports = await fetchAllReports(filter);
+    setReportData(reports);
     setSelectedFilter(filter);
   }, []);
-
-  React.useEffect(() => {
-    async function getReports() {
-      const reports = await fetchAllReports(selectedFilter);
-      setReportData(reports);
-    }
-    if (selectedFilter) {
-      getReports();
-    }
-  }, [selectedFilter]);
 
   const group = getGroupName(selectedFilter);
 
