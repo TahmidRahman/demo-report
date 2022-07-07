@@ -17,13 +17,6 @@
   height: calc(100% - 61px);
 }
 
-.pageContent {
-  height: 100%;
-  width: 100%;
-  padding: 16px;
-  box-sizing: border-box;
-}
-
 .reportContainer {
   display: flex;
   width: 100%;
